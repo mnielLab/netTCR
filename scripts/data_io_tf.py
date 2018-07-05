@@ -123,7 +123,7 @@ def read_blosum_MN(filename):
                             tmp2.append(float(tmp[i]))
 
                     #save in BLOSUM matrix
-                    [i * 0.2 for i in tmp2] #scale (divide by 5)
+                    tmp2 = [i * 0.2 for i in tmp2] #scale (divide by 5)
                     blosum[aa]=tmp2
     blosumfile.close()
     blosum["B"]=np.ones(21)*0.1
