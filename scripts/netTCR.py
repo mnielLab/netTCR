@@ -148,8 +148,8 @@ for t in N_PART:
     for v in N_PART:
         if t != v:
             # set up network:
-            MODEL = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz")['arr_1']
-            hyper_params = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz")['arr_2']
+            MODEL = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz",fix_imports=True)['arr_1']
+            hyper_params = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz",fix_imports=True)['arr_2']
             N_FEATURES=int(hyper_params[0])
             N_HID=int(hyper_params[1])
             N_FILTERS=int(hyper_params[2])
@@ -165,7 +165,7 @@ for t in N_PART:
             sess.run(tf.global_variables_initializer())
 
             # set parameters:
-            best_params = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz")['arr_0']
+            best_params = np.load(param_dir + "params.t." + str(t) +  ".v." + str(v) + ".s." + str(s) + ".npz",fix_imports=True)['arr_0']
             params=tf.trainable_variables()
 
             for i in range(0,len(params)):
