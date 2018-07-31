@@ -9,4 +9,4 @@ or with TCR list and peptide spcification:
 
 the options for peptides should be:
 
-GLCTLVAML, NLVPMVATV and GILGFVFTL
+GILGFVFTL, GLCTLVAML, NLVPMVATV and YVLDHLIVV. 
