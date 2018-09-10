@@ -130,6 +130,7 @@ blosum = data_io_tf.read_blosum_MN(blosumfile)
 X_pep = data_io_tf.enc_list_bl(X_pep, blosum)
 X_tcr = data_io_tf.enc_list_bl_start_stop(X_tcr, blosum)
 
+
 ################################################################################
 #   PREDICT NETWORKS
 ################################################################################
@@ -153,7 +154,7 @@ for t in N_PART:
             N_FEATURES=int(hyper_params[0])
             N_HID=int(hyper_params[1])
             N_FILTERS=int(hyper_params[2])
-            
+
             with tf.device(device_name):
                 if MODEL=="CNN_opt2":
                     predictions,l_in_pep,l_in_tcr,drop_rate = NN_tf.build_CNN(n_features=N_FEATURES,n_hid=N_HID,n_filters=N_FILTERS)
@@ -184,7 +185,25 @@ all_pred=np.array(all_pred)
 pred = np.mean(all_pred, axis=0)
 
 
+################################################################################
+#   READ KNOWN DATA
+################################################################################
+
+training_data=open(param_dir + "iedb_mira_pos_uniq.txt", "r")
+known_pTCR=[]
+for l in training_data:
+    l=l.strip().split()
+    known_pTCR.append(l[0]+"_"+l[1])
+training_data.close()
+
+################################################################################
+#   PRINT RESULTS
+################################################################################
+
 for i in range(0,pep_aa.shape[0]):
-    outfile.write(str(pep_aa[i]) + "\t" + str(tcr_aa[i]) + "\t"  + str(pred[i][0]) + "\n")
+    if pep_aa[i] + "_" + tcr_aa[i] in known_pTCR:
+        outfile.write(str(pep_aa[i]) + "\t" + str(tcr_aa[i]) + "\t1.0\n")
+    else:
+        outfile.write(str(pep_aa[i]) + "\t" + str(tcr_aa[i]) + "\t"  + str(pred[i][0]) + "\n")
 outfile.write("# Done\n")
 outfile.close()
