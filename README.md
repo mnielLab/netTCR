@@ -1,4 +1,6 @@
 # netTCR
+
+# Note, the repository is outdated. Please refrain from using, and use netTCR-2.0 instead.
 predicting peptide and TCR interaction
 
 `python scripts/netTCR.py -infile test_data/data.txt -outfile NetTCR_predictions.txt`
